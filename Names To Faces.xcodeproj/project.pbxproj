@@ -12,6 +12,8 @@
 		7DD9BE7F220DEA8800F0114C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DD9BE7D220DEA8800F0114C /* Main.storyboard */; };
 		7DD9BE81220DEA8A00F0114C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DD9BE80220DEA8A00F0114C /* Assets.xcassets */; };
 		7DD9BE84220DEA8A00F0114C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DD9BE82220DEA8A00F0114C /* LaunchScreen.storyboard */; };
+		7DDF5AC6220DF817008A7BFC /* PersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDF5AC5220DF817008A7BFC /* PersonCell.swift */; };
+		7DDF5AC8220E1A95008A7BFC /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDF5AC7220E1A95008A7BFC /* Person.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		7DD9BE80220DEA8A00F0114C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7DD9BE83220DEA8A00F0114C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7DD9BE85220DEA8A00F0114C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DDF5AC5220DF817008A7BFC /* PersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCell.swift; sourceTree = "<group>"; };
+		7DDF5AC7220E1A95008A7BFC /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,64 @@
 		7DD9BE78220DEA8800F0114C /* Names To Faces */ = {
 			isa = PBXGroup;
 			children = (
-				7DD9BE79220DEA8800F0114C /* AppDelegate.swift */,
-				7DD9BE7B220DEA8800F0114C /* ViewController.swift */,
-				7DD9BE7D220DEA8800F0114C /* Main.storyboard */,
-				7DD9BE80220DEA8A00F0114C /* Assets.xcassets */,
-				7DD9BE82220DEA8A00F0114C /* LaunchScreen.storyboard */,
+				7DDF5ACB220E59CD008A7BFC /* Model */,
+				7DDF5ACA220E59AC008A7BFC /* View */,
+				7DDF5AC9220E59A0008A7BFC /* Controller */,
+				7DDF5ACC220E5A04008A7BFC /* App Delegate */,
+				7DDF5ACD220E5A1C008A7BFC /* Storyboards */,
+				7DDF5ACE220E5B17008A7BFC /* Resources */,
 				7DD9BE85220DEA8A00F0114C /* Info.plist */,
 			);
 			path = "Names To Faces";
+			sourceTree = "<group>";
+		};
+		7DDF5AC9220E59A0008A7BFC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7DD9BE7B220DEA8800F0114C /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7DDF5ACA220E59AC008A7BFC /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7DDF5ACB220E59CD008A7BFC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7DDF5AC7220E1A95008A7BFC /* Person.swift */,
+				7DDF5AC5220DF817008A7BFC /* PersonCell.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7DDF5ACC220E5A04008A7BFC /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				7DD9BE79220DEA8800F0114C /* AppDelegate.swift */,
+			);
+			path = "App Delegate";
+			sourceTree = "<group>";
+		};
+		7DDF5ACD220E5A1C008A7BFC /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				7DD9BE7D220DEA8800F0114C /* Main.storyboard */,
+				7DD9BE82220DEA8A00F0114C /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		7DDF5ACE220E5B17008A7BFC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7DD9BE80220DEA8A00F0114C /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +189,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DDF5AC6220DF817008A7BFC /* PersonCell.swift in Sources */,
 				7DD9BE7C220DEA8800F0114C /* ViewController.swift in Sources */,
+				7DDF5AC8220E1A95008A7BFC /* Person.swift in Sources */,
 				7DD9BE7A220DEA8800F0114C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
