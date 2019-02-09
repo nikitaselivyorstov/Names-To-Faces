@@ -7,6 +7,7 @@ final class ViewController: UICollectionViewController, UIImagePickerControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        userDefaultExampleCodable()
     }
     
     @objc private func addNewPerson() {
@@ -27,12 +28,35 @@ final class ViewController: UICollectionViewController, UIImagePickerControllerD
         people.append(person)
         collectionView?.reloadData()
         dismiss(animated: true)
+        save()
     }
     
     private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
+    }
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode(people) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "people")
+        } else {
+            print("Failed to save people.")
+        }
+    }
+    
+    func userDefaultExampleCodable() {
+        let defaults = UserDefaults.standard
+        if let savedPeople = defaults.object(forKey: "people") as? Data {
+            let jsonDecoder = JSONDecoder()
+            do {
+                people = try jsonDecoder.decode([Person].self, from: savedPeople)
+            } catch {
+                print("Failed to load people")
+            }
+        }
     }
 }
 
@@ -62,8 +86,8 @@ extension ViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [unowned self, ac] _ in
             let newName = ac.textFields![0]
             person.name = newName.text!
-            
             self.collectionView?.reloadData()
+            self.save()
         })
         present(ac, animated: true)
     }
