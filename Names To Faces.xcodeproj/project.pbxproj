@@ -80,6 +80,7 @@
 		7DDF5ACA220E59AC008A7BFC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7DDF5AC5220DF817008A7BFC /* PersonCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -88,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				7DDF5AC7220E1A95008A7BFC /* Person.swift */,
-				7DDF5AC5220DF817008A7BFC /* PersonCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

@@ -1,43 +1,29 @@
 import UIKit
 
-final class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+final class ViewController: UICollectionViewController {
     
     var people = [Person]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson)) //2
         userDefaultExampleCodable()
     }
     
-    @objc private func addNewPerson() {
+    @objc private func addNewPerson() { //3
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.originalImage] as? UIImage else { return }
-        let imageName = UUID().uuidString
-        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        if let jpegData = image.jpegData(compressionQuality: 0.8) {
-            try? jpegData.write(to: imagePath)
-        }
-        let person = Person(name: "Unknown", image: imageName)
-        people.append(person)
-        collectionView?.reloadData()
-        dismiss(animated: true)
-        save()
-    }
-    
-    private func getDocumentsDirectory() -> URL {
+    private func getDocumentsDirectory() -> URL { //4
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
     }
     
-    func save() {
+    func save() { //6
         let jsonEncoder = JSONEncoder()
         if let savedData = try? jsonEncoder.encode(people) {
             let defaults = UserDefaults.standard
@@ -46,8 +32,8 @@ final class ViewController: UICollectionViewController, UIImagePickerControllerD
             print("Failed to save people.")
         }
     }
-    
-    func userDefaultExampleCodable() {
+    //вытаскиваем
+    func userDefaultExampleCodable() { //1
         let defaults = UserDefaults.standard
         if let savedPeople = defaults.object(forKey: "people") as? Data {
             let jsonDecoder = JSONDecoder()
@@ -85,10 +71,48 @@ extension ViewController {
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [unowned self, ac] _ in
             let newName = ac.textFields![0]
-            person.name = newName.text!
+            
+            if newName.text != nil {
+                person.update(name: newName.text!)
+            } else {
+                fatalError("Empty value 'Name'")
+            }
+            
+            //       2)     let nameProperty = newName.text ?? "Empty value Name"
+            //            person.update(name: nameProperty)
+            
+            //       3)     guard let nameProperty = newName.text else {fatalError("Empty value Name")}
+            //            person.update(name: nameProperty)
+            
+            //       4)     if let nameProperty = newName.text {
+            //                person.update(name: nameProperty)
+            //            } else {
+            //                print("Empty value Name")
+            //            }
+            
+            if (newName.text?.isEmpty)! {
+                
+            }
+            
             self.collectionView?.reloadData()
             self.save()
         })
         present(ac, animated: true)
+    }
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate { //5
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.originalImage] as? UIImage else { return }
+        let imageName = UUID().uuidString
+        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+        if let jpegData = image.jpegData(compressionQuality: 0.8) {
+            try? jpegData.write(to: imagePath)
+        }
+        let person = Person(image: imageName)
+        people.append(person)
+        collectionView?.reloadData()
+       // dismiss(animated: true)
+        save()
     }
 }
